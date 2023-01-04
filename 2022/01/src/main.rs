@@ -1,6 +1,7 @@
 use aoc_2022_utils::filepath_read_to_string;
 
-fn find_max_run(input: String) -> usize
+/* this might be faster to find just the first answer
+fn find_max_group(input: String) -> usize
 {
     // let mut elves = vec![];
     let mut current: usize = 0;
@@ -21,13 +22,39 @@ fn find_max_run(input: String) -> usize
     }
     return max
 }
+*/
+
+/*
+ * Expects a string of values separated by newlines arranged in groups separated by blank lines.
+ * Returns those groups summed into a vector of values.
+ */
+fn sum_groups(input: String) -> Vec<usize>
+{
+    let mut groups = Vec::new();
+    let lines = input.lines();
+    let mut current = 0;
+    for line in lines {
+        if line == "" {
+            groups.push(current);
+            current = 0;
+        } else {
+            let value: usize = line.parse().unwrap();
+            current += value;
+        }
+    }
+    groups
+}
 
 fn main()
 {
     let input_path = env!("CARGO_MANIFEST_DIR").to_owned() + "/input.txt";
     let input = filepath_read_to_string(input_path);
-    let output = find_max_run(input);
-    print!("{}", output);
+    let mut elves: Vec<usize> = sum_groups(input);
+    elves.sort();
+    let (_small, big) = elves.split_at(elves.len() - 3);
+    print!("Part 1 - elf with most calories:\n {:?}\n", big.last().unwrap());
+    let sum_of_biggest: usize = big.iter().sum();
+    print!("Part 2 - Three elves with most calories:\n {:?}\n", sum_of_biggest);
 }
 
 // TODO criterion to measure benchmarks

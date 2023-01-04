@@ -52,7 +52,7 @@ fn args_to_vec() -> Vec<String>
     return args
 }
 
-fn arg2_to_string(input: String) -> String
+fn filepath_read_to_string(input: String) -> String
 {
     let path = path::Path::new(&input);
     debug_assert!(path.exists());
@@ -88,7 +88,7 @@ fn find_max_run(input: String) -> usize
 fn main()
 {
     let args = args_to_vec();
-    let input = arg2_to_string(args[1].to_owned());
+    let input = filepath_read_to_string(args[1].to_owned());
     find_max_run(input);
 }
 
@@ -97,6 +97,6 @@ fn main()
 fn main_test() {
     let proj_path = env!("CARGO_MANIFEST_DIR").to_owned();
     let input_path = proj_path + "/input.txt";
-    let input = arg2_to_string(input_path);
+    let input = filepath_read_to_string(input_path);
     find_max_run(input);
 }

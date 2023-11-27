@@ -1,5 +1,6 @@
 mod util;
 mod aoc1;
+mod aoc2;
 use clap::Parser;
 
 #[derive(Parser, Debug)]
@@ -28,6 +29,7 @@ pub fn main() {
     } else {
         match args.problem {
             1 => aoc1::main(),
+            2 => aoc2::main().unwrap(),
             _ => println!("I haven't finished that problem yet!"),
         };
     }

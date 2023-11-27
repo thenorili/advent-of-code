@@ -1,4 +1,4 @@
-use aoc_2022_utils::filepath_read_to_string;
+use crate::util::input_read_to_string;
 
 /* this might be faster to find just the first answer
 fn find_max_group(input: String) -> usize
@@ -45,10 +45,9 @@ fn sum_groups(input: String) -> Vec<usize>
     groups
 }
 
-fn main()
+pub fn main()
 {
-    let input_path = env!("CARGO_MANIFEST_DIR").to_owned() + "/input.txt";
-    let input = filepath_read_to_string(input_path);
+    let input = input_read_to_string("1");
     let mut elves: Vec<usize> = sum_groups(input);
     elves.sort();
     let (_small, big) = elves.split_at(elves.len() - 3);
